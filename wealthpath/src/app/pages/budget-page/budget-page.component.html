@@ -1,0 +1,55 @@
+<!-- budget.component.html -->
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Overview</span>
+      <span>Transactions</span>
+      <span>Budgets</span>
+      <!-- Other toolbar items -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <div class="budget-summary">
+    <mat-card>
+      <mat-card-title>November 2023</mat-card-title>
+      <mat-card-content>
+        <div>
+          <h2>Income</h2>
+          <mat-progress-bar mode="determinate" value="{{budget.income / budget.expectedIncome * 100}}"></mat-progress-bar>
+          <p>{{budget.income}} of {{budget.expectedIncome}} expected</p>
+        </div>
+        <div>
+          <h2>Spending</h2>
+          <mat-progress-bar mode="determinate" value="{{budget.spending / budget.expectedSpending * 100}}"></mat-progress-bar>
+          <p>{{budget.spending}} of {{budget.expectedSpending}}</p>
+        </div>
+        <!-- Other budget summary items -->
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <mat-card>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Budgets">
+          <div *ngFor="let item of budget.spendingDetails">
+            <mat-list-item>
+              <h4 mat-line>{{item.category}}</h4>
+              <p mat-line>Spent: {{item.spent}} of {{item.budget}}</p>
+              <mat-progress-bar mode="determinate" value="{{item.spent / item.budget * 100}}"></mat-progress-bar>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+        <!-- Other tabs if necessary -->
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  
+  <div class="month-selector">
+    <mat-button-toggle-group [(ngModel)]="selectedMonth" aria-label="Month Selector">
+      <mat-button-toggle *ngFor="let month of months" [value]="month">
+        {{month}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  
